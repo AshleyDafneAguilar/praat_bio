@@ -1,0 +1,11 @@
+[project]
+name = "praat-bio"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "praat-parselmouth>=0.4.7",
+    "numpy>=1.26.4",
+    "pandas>=2.2.2",
+]
