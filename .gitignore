@@ -7,6 +7,10 @@ wheels/
 *.egg-info
 grabaciones_segmentadas
 grabaciones_originales
+overleaf
 
 # Virtual environments
 .venv
+
+# Resultados
+resultados/img/espectro-espectrograma
