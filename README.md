@@ -2,8 +2,7 @@
 
 **Author:** Ashley Dafne Aguilar Salinas ([ashleyd.aguilars@inaoep.mx](mailto:ashleyd.aguilars@inaoep.mx))  
 **Project Directors:** 
-Dr. Carlos Alberto Reyes García ([kargaxxi@inaoep.mx](mailto:kargaxxi@inaoep.mx)) 
-
+Dr. Carlos Alberto Reyes García ([kargaxxi@inaoep.mx](mailto:kargaxxi@inaoep.mx)) \\
 Dr. Alejandro Antonio Torres García ([alejandro.torres@ccc.inaoep.mx](alejandro.torres@ccc.inaoep.mx)) 
 
 ---
