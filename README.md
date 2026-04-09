@@ -6,6 +6,7 @@ Dr. Carlos Alberto Reyes García ([kargaxxi@inaoep.mx](mailto:kargaxxi@inaoep.mx
 Dr. Alejandro Antonio Torres García ([alejandro.torres@ccc.inaoep.mx](alejandro.torres@ccc.inaoep.mx)) 
 
 ---
+## introduction
 
 This study presents the acoustic characterization of a 22-year-old female voice through the systematic extraction of biosignal descriptors using an integration of Praat and the `parselmouth` library in Python. Fifty segmented samples of an emergency vocabulary, captured at a sampling rate of 8000 Hz, were processed. The objective was to contrast the accuracy of parameter extraction under standard configurations versus technically grounded adjustments.
 
