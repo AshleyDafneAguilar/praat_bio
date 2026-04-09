@@ -42,6 +42,12 @@ uv run main.py configuraciones.ini
 uv run main.py configuraciones_default.ini
 ```
 
+Additionally, to sequentially generate the quantitative visual representations (Power Spectrum and Spectrogram) of all the segmented voice samples, you can execute the complementary analysis script (which leverages `espectro.py` internally):
+```bash
+uv run main_espectro.py
+```
+This routine will generate and store the corresponding 100 plotted images, classifying them dynamically inside categorical word-named subdirectories under the `resultados/img/` path.
+
 ### Parameter Customization
 
 The system is designed so that all analytical parameters (such as Pitch thresholds, Formant maxima, LPC order, and MFCC coefficients) can be altered by directly editing `configuraciones.ini` or `configuraciones_default.ini`. 
@@ -71,3 +77,6 @@ The absolute summary of the averages is as follows:
 
 ![Comparison of Average Metrics](resultados/img/comparacion_promedios.png)  
 *Consolidated averages graph comparing the three main processed frequencies side by side. The stark parametric divergence in high formants (F1/F2) is drastically illustrated.*
+
+### 4. Direct Visual Spectrograms and Power Spectrums
+The creation of qualitative acoustic plots executed through `main_espectro.py` and `espectro.py` allowed a visual consistency check against the CSV datasets. By systematically generating the individual Power Spectrum alongside its high-contrast Spectrogram (properly delimited inside the 4000 Hz scope to adapt to the Nyquist constraints and normalized internally via logarithms to prevent visual artifacts), an extra layer of structural verification is achieved. These outputs showcase where harmonic energy actually resides, acting as direct visible proof of how formants and pitch are distributed for each isolated spoken emergency word.
