@@ -80,3 +80,17 @@ The absolute summary of the averages is as follows:
 
 ### 4. Direct Visual Spectrograms and Power Spectrums
 The creation of qualitative acoustic plots executed through `main_espectro.py` and `espectro.py` allowed a visual consistency check against the CSV datasets. By systematically generating the individual Power Spectrum alongside its high-contrast Spectrogram (properly delimited inside the 4000 Hz scope to adapt to the Nyquist constraints and normalized internally via logarithms to prevent visual artifacts), an extra layer of structural verification is achieved. These outputs showcase where harmonic energy actually resides, acting as direct visible proof of how formants and pitch are distributed for each isolated spoken emergency word.
+
+## Bibliography
+
+[1] Jayakumar, T., Benoy, J. J., & Yasin, H. M. (2022). Effect of Age and Gender on Acoustic Voice Quality Index Across Lifespan: A
+Cross-sectional Study in Indian Population. Journal of Voice, 36(3), 436.e1–436.e8. https://doi.org/10.1016/j.jvoice.2020.05.025
+
+[2] Jadoul, Y., Thompson, B., & de Boer, B. (2018). Introducing Parselmouth: A Python interface to Praat. Journal of Phonetics, 71, 1–15.
+https://doi.org/10.1016/j.wocn.2018.07.001
+
+[3] Barmak, E., Altan, E., Söylemez, D., & Çadallı Tatar, E. (2024). Investigation of Acoustic Voice Characteristics of Individuals Diagnosed
+with Muscle Tension Dysphonia. Turkish Archives of Otorhinolaryngology, 62(2), 58–65. https://doi.org/10.4274/tao.2024.2024-3-15
+
+[4] Droguett, Y. G. (2017). Aplicaciones clínicas del análisis acústico de la voz. Revista de Otorrinolaringología y Cirugía de Cabeza y Cuello, 77,
+474–483. https://doi.org/10.4067/s0718-48162017000400474
