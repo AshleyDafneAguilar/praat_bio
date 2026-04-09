@@ -1,18 +1,18 @@
-# Análisis Acústico y Caracterización de Bioseñales de Voz: Estudio de Caso en una Hablante en Adultez Temprana
+# Acoustic Analysis and Characterization of Voice Biosignals: A Case Study of a Female Speaker in Early Adulthood
 
+**Author:** Ashley Dafne Aguilar Salinas ([ashleyd.aguilars@inaoep.mx](mailto:ashleyd.aguilars@inaoep.mx))  
+**Project Directors:** Dr. Carlos Alberto Reyes García and Dr. Alejandro Antonio Torres García
 
-Este estudio presenta la caracterización acústica de una voz femenina de 22 años a través de la extracción sistemática de descriptores bioseñales utilizando una integración de Praat y la librería `parselmouth` en Python. Se procesaron 50 muestras segmentadas de un vocabulario de emergencia capturadas a una tasa de muestreo de 8000 Hz, con el objetivo de contrastar la precisión de la extracción de parámetros bajo configuraciones estándar frente a ajustes técnicos fundamentados.
+This study presents the acoustic characterization of a 22-year-old female voice through the systematic extraction of biosignal descriptors using an integration of Praat and the `parselmouth` library in Python. Fifty segmented samples of an emergency vocabulary, captured at a sampling rate of 8000 Hz, were processed. The objective was to contrast the accuracy of parameter extraction under standard configurations versus technically grounded adjustments.
 
-La metodología incluyó la comparación de la frecuencia fundamental ($F_0$), formantes ($F_1, F_2$), coeficientes MFCC y LPC, aplicando el límite de Nyquist (4000 Hz) para optimizar la detección de resonancias. Los resultados demuestran que, mientras el seguimiento de $F_0$ se mantiene robusto y alineado con los rangos reportados por la literatura para mujeres jóvenes (Zraick et al., 2021), la precisión de los formantes superiores depende críticamente del ajuste de los rangos de búsqueda y el orden de predicción lineal. Este trabajo valida un flujo de trabajo automatizado que garantiza la fidelidad técnica y la coherencia anatómica en el análisis de señales de voz con ancho de banda limitado.
+The methodology included comparing the fundamental frequency ($F_0$), formants ($F_1, F_2$), MFCC, and LPC coefficients, applying the Nyquist limit (4000 Hz) to optimize resonance detection. The results demonstrate that, while $F_0$ tracking remains robust and aligns with ranges reported in the literature for young women (Zraick et al., 2021), the accuracy of higher formants depends critically on adjusting the search ranges and linear prediction order. This work validates an automated workflow that ensures technical fidelity and anatomical coherence when analyzing bandwidth-limited voice signals.
 
+## Usage Guide
 
+This project relies on **uv**, a Python package manager that automatically handles virtual environments and dependencies.
 
-## Modo de Uso
-
-Este proyecto utiliza **uv**, un administrador de paquetes de Python que gestiona automáticamente el entorno virtual y las dependencias.
-
-### Instalación de uv
-Si no tienes instalado `uv` en tu sistema, puedes obtenerlo con un solo comando:
+### Installation of uv
+If `uv` is not installed on your system, it can be acquired with a single command:
 
 *   **macOS / Linux:**
     ```bash
@@ -22,46 +22,47 @@ Si no tienes instalado `uv` en tu sistema, puedes obtenerlo con un solo comando:
     ```powershell
     powershell -c "irm https://astral.sh/uv/install.ps1 | iex"
     ```
-### Flujo de Ejecución
 
-El flujo general se diseñó aislando el análisis del código fuente, derivando su ejecución bajo archivos de configuración con extensión `.ini`. Para ejecutar el procesamiento en tu terminal:
+### Execution Flow
+
+The general workflow was designed to isolate the analysis from the source code, deriving its execution from configuration files with the `.ini` extension. To perform the processing, execute the following in your terminal:
 
 ```bash
 uv run main.py <archivo_de_configuracion.ini>
 ```
 
-Por ejemplo, puedes ejecutar tu script con la configuración principal y la configuración de defecto para observar las variaciones en los resultados de la siguiente manera:
+For instance, you can run your script using both the main configuration and the default configuration to observe variations in the outcomes, as follows:
 ```bash
 uv run main.py configuraciones.ini
 uv run main.py configuraciones_default.ini
 ```
 
-### Personalización de Parámetros
+### Parameter Customization
 
-El sistema está diseñado para que todos los parámetros de análisis (como los umbrales de Pitch, máximos de Formantes, orden LPC y coeficientes MFCC) puedan ser alterables editando directamente en `configuraciones.ini` o `configuraciones_default.ini`. 
+The system is designed so that all analytical parameters (such as Pitch thresholds, Formant maxima, LPC order, and MFCC coefficients) can be altered by directly editing `configuraciones.ini` or `configuraciones_default.ini`. 
 
-Alternativamente, puedes crear archivos `.ini` nuevos usando estos archivos existentes base como "esqueleto". Solo necesitas copiar la estructura y adaptar los datos a tu conveniencia sin modificar las pruebas originales, bastará con indicarle a `main.py` tu nuevo archivo al ejecutarlo.
+Alternatively, new `.ini` files can be created using these existing files as a "skeleton" base. You only need to copy the structure and adjust the data to your requirements without modifying the original tests; simply specify your new file to `main.py` upon execution.
 
+## Results Analysis and Conclusions
 
+Two systematic executions were carried out, producing two datasets stored in the `resultados/` directory: `resultados_analisis_default.csv` and `resultados_analisis_ajustado.csv`. These represent Praat's raw default analysis versus a parametric adjustment in search minimums and spectral ranges. Upon reviewing the tabulated CSV data and their respective generated graphs, the following findings were identified:
 
+### 1. Significant Alteration of Formants (F1 and F2)
+Adjusting the maximum vocal tract ceiling (`maximum_formant`) from `5500.0` Hz to `4000.0` Hz (considering the Nyquist Theorem for recordings sampled at 8000 Hz) yielded a highly noticeable difference in formant estimation. The *Burg* algorithm redirected its estimations, shifting the spectral localization of the resonances. This demonstrates that formant estimations scatter erroneously when the anatomical proportions and cutoff frequency limitations of the original recording are not previously adapted.
 
-## Análisis de Resultados y Conclusiones
+![Vowel Space Map (F1 vs F2)](resultados/img/espacio_formantes.png)  
+*Relational F1 vs F2 map displaying the radical graphical relocation of formants between the default and adjusted configurations.*
 
-Se realizaron dos ejecuciones sistemáticas produciendo dos conjuntos de datos almacenados en el directorio `resultados/`: `resultados_analisis_default.csv` y `resultados_analisis_ajustado.csv`. Estos representan el análisis crudo en Praat por defecto versus un ajuste paramétrico en los mínimos de búsqueda y rangos espectrales. Al revisar los datos CSV tabulados y sus respectivas gráficas emitidas, identificamos los siguientes hallazgos:
+### 2. Refined Pitch Precision (F0)
+Increasing the floor limit (`pitch_floor` from 75 to 100 Hz) prevented the F0 estimator from incorporating undesired frequencies that usually correspond to severe environmental noise or false voice sub-harmonics rather than the speaker's true fundamental tone.
 
-Al ajustar la cota máxima del tracto vocal (`maximum_formant`) de `5500.0` Hz a `4000.0` Hz (considerando el Teorema de Nyquist para grabaciones muestreadas a 8000 Hz), ocurrió una diferencia muy notable en la estimación de formantes. El algoritmo de *Burg* redirigió sus estimaciones, cambiando la localización espectral de las resonancias. Esto demuestra que las estimaciones de formantes se dispersan erróneamente al no adaptar de antemano las proporciones anatómicas y limitaciones de frecuencia de corte de la grabación original.
+![Pitch Stability (F0)](resultados/img/pitch_por_palabra.png)  
+*Vocabulary-wise linear comparison evidencing a subtle variation in Pitch frequency estimation after cleaning the minimum analysis range.*
 
-![Mapa del Espacio Vocálico (F1 vs F2)](resultados/img/espacio_formantes.png)  
-*Mapa relacional F1 vs F2 mostrando la radical reubicación gráfica de los formantes entre la configuración por defecto y la ajustada.*
+### 3. Independence and Summary of Average Metrics
+Finally, when contrasting both outputs, the observed metrics for volumetric and compound variables (such as *Intensity* and *MFCC*) resulted entirely numerically identical despite the alterations injected into their surrounding spectral analysis layers (Pitch/Formant Margin). This verifies the strong technical and granular independence of individual transformations when employing Parselmouth.
 
-Al aumentar el límite de piso (`pitch_floor` de 75 a 100 Hz) previno que el estimador F0 incluyera frecuencias indeseadas que usualmente corresponden a ruido ambiental grave o falsos sub-armónicos de la voz en lugar del auténtico tono fundamental de la locutora.
+The absolute summary of the averages is as follows:
 
-![Estabilidad del Pitch (F0)](resultados/img/pitch_por_palabra.png)  
-*Comparativa lineal por vocabulario que evidencia una variación sutil en la estimación de la frecuencia del Pitch al depurar el rango de análisis mínimo.*
-
-Finalmente, al contrastar ambas salidas, las métricas observadas para variables volumétricas y compuestas (como *Intensidad* y *MFCC*) resultaron completamente idénticas numéricamente pese a las alteraciones inyectadas en las capas de análisis espectral de su alrededor (Pitch/Margen de Formantes). Esto verifica la fuerte independencia técnica y granular de las transformaciones individuales cuando utilizamos Parselmouth.
-
-El resumen absoluto de los promedios es el siguiente:
-
-![Comparación de Métricas Promedio](resultados/img/comparacion_promedios.png)  
-*Gráfica de promedios consolidada comparando lado a lado las 3 frecuencias principales tratadas. Se ilustra drásticamente la divergencia paramétrica en formantes altos (F1/F2).*
+![Comparison of Average Metrics](resultados/img/comparacion_promedios.png)  
+*Consolidated averages graph comparing the three main processed frequencies side by side. The stark parametric divergence in high formants (F1/F2) is drastically illustrated.*
